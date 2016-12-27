@@ -4,53 +4,56 @@
   <head>
     <title>Emoji translator - translate English to emoji</title>
     <link rel="stylesheet" href="https://unpkg.com/tachyons@4.6.1/css/tachyons.min.css"/>
+    <meta charset="utf-8"/>
   </head>
 
-  <body class="f4 purple helvetica pa4">
-    <div class="cf">
-      <div class="fl w-25 pa1"></div>
-      <div class="fl w-50 pa1 tc purple">
-        <h1>Emoji translator</h1>
-        <h3 class="light-purple">You give it some text, it gives you back some emotion</h3>
-        <div class="fl w-10 pa1"></div>
-        <div class="fl w-80 pa1 tl">
-          <div class="pa1">
-            <label for="inputText">What would you like to translate?</label><br/>
-            <textarea id="inputText" rows="3" class="w-100" placeholder="Enter text to translate here" autofocus></textarea>
+  <body class="sans-serif navy bg-near-white">
+    <header class="pa3 bg-navy near-white">
+      <h1 class="f-headline mb0 mt4">Emoji translator</h1>
+      <h2 class="mt1 yellow">You give it some 📄, it gives you back some 😹 😆 😢</h3>
+    </header>
+    <div class="cf bg-near-white navy pb5">
+      <div class="fl w-100 w-50-ns pa3 dib v-top">
+        <h1>What would you like to translate?</h1>
+            <textarea id="inputText" rows="3" class="w-100 br2" placeholder="Enter text to translate here" autofocus></textarea>
             <br/>
-            <a class="link dim br-pill ph3 pv2 mb2 dib near-white bg-dark-pink" id="translate" href="#0">Translate</a>
+            <div class="tr">
+              <a class="link dim br2 ph3 pv2 mb2 dib white bg-blue"  id="translate" href="#0">Translate</a>
+            </div>
+       </div>
+       <div id="output-div" class="fl w-100 w-50-ns pa3 dib v-top">
+          <h1>Your translation</h1>
+          <div id="translation" class="">
+            <span class="light-silver">Enter text in the box to the left and
+              press "Translate"</span>
           </div>
-          <div id="output-div" hidden class="pa1">
-            <h3>Your translation</h3>
-            <div id="translation" class="pa3 ba br4"></div>
-          </div>
-        </div>  <!-- input / output div -->
-        <div class="fl w-10 pa1"></div>
-      </div>  <!-- central  column container -->
-      <div class="fl w-25 pa1"></div>
-    </div>
+       </div>
+     </div> <!-- end div with input and output -->
 
-  <footer>
-    <div class="w-100 pa1 f6 tr pt7">
-      <a href="https://github.com/anaulin/emo/issues">File a bug or feature request</a> |
-      <a href="https://github.com/anaulin/emo">Source code</a>
-    </div>
-    <div class="w-100 pa1 f6 tr">
-      Made by <a href="http://anaulin.org">Ana Ulin</a> with 😹
-    </div>
+  <footer class="bg-near-white light-silver f6 pa3 mt3 v-btm">
+      <h1 class="f5">About emoji translator</h1>
+      <p class="measure-wide lh-copy">The translator will replace words in the input text with emojis that
+      convey a similar concept. If more than one match exists, a random emoji
+      will be picked from the set of matches.</p>
+      <p class="measure-wide lh-copy">If something doesn't seem right or you have a feature request,
+      you can <a class="light-silver"
+        href="https://github.com/anaulin/emo/issues">file it on GitHub</a>.
+      </p>
+      <p class="measure-wide lh-copy">
+        <a class="light-silver" href="https://github.com/anaulin/emo">Source code</a>
+      </p>
+      <p class="measure-wide lh-copy"><small>
+        Made by <a class="light-silver" href="http://anaulin.org">Ana Ulin</a> with 💖  and 😹
+      </small></p>
     <script type="text/javascript" src="emoji_translator.js"></script>
     <script type="text/javascript">
       // Load data and initialize translator object.
       var translator;
-      console.log("Loading data");
-      var loadStart = new Date().getTime()
       var oReq = new XMLHttpRequest();
       oReq.overrideMimeType("application/json");
       oReq.open("GET", "emoji_data.json", true /* async */);
       oReq.addEventListener("loadend", function() {
         var emojiData = JSON.parse(oReq.responseText);
-        var loadTimeMs = new Date().getTime() - loadStart
-        console.log("Loaded emoji_data in " + loadTimeMs + " ms");
         translator = new Translator(emojiData);
       });
       oReq.send();
@@ -58,11 +61,8 @@
       // Add event listener to translate button.
       var translateButton = document.getElementById("translate");
       translateButton.addEventListener("click", function() {
-        console.log("Button clicked. Translating.");
         var input = document.getElementById("inputText").value
-        console.log("Textarea input: " + input);
           var output = translator.translate(input);
-          console.log("Translated: " + output);
           var translationDiv = document.getElementById("translation");
           translationDiv.innerHTML = output;
           var outputDiv = document.getElementById("output-div");
@@ -73,4 +73,14 @@
   </footer>
 
   </body>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-800500-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
 </html>
