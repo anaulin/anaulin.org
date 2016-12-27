@@ -1,4 +1,3 @@
-anaulin.org
-===========
+# [anaulin.org](http://anaulin.org)
 
-Stuff for my personal website.
+Source code for things that live on http://anaulin.org.
